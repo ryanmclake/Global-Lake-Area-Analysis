@@ -1,11 +1,11 @@
 # Global-Lake-Area-Analysis
 -----
 
-:busts_in_silhouette: Alli Cramer, Steve Katz, Ryan McClure
+:busts_in_silhouette: Ryan McClure, Alli Cramer, Steve Katz
 
-:busts_in_silhouette: Special thanks to:
+:busts_in_silhouette: Special thanks to: Michael Meyer, Stephanie Hampton, Xiao Yang, Salvatore Virdis, Matthew Brousil
 
-Questions?  :email: 
+Questions?  :email: rmcclure@carnegiescience.edu
 
 ## Motivation
 
