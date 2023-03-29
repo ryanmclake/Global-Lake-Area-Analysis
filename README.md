@@ -13,6 +13,4 @@ Thank you for checking out the GLCP analysis workflow. Lakes globally are both i
 
 We developed a workflow that analyzes the magnitude and direction of lake area change for 1.4+ million lakes globally. We then isolated lakes that were increasing and decreasing in area across four WWF ecoregions and then quantified the importance of drivers. This is a first globally-scaled attempt to partition how lake area is chaning globally and to isolate the most important predictors of that change. 
 
-### There are 4 major data processes currently in production. 
-
 <a href="url"><img src = "GLCP_Workflow.jpeg" align="center" height="400" width="600" ></a>
