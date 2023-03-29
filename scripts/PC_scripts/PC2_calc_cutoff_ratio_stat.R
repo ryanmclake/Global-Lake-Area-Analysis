@@ -1,3 +1,6 @@
+rm(list=ls())
+gc()
+
 # script calculates area ratio cut off on GLCP slim kendall data set 
   # glcp slim kendall is the GLCP 2.0 with only the columns of interest, plus the column of kendal tau of permanent water 
   #script:
@@ -16,13 +19,17 @@
 #### initial time for script start #### 
 s = Sys.time()
 
+# Elegant way to quickly install packages fast
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, tidyr, Kendall, feather, broom)
+
 #### Bringing in the data set ####
 
-d <- vroom::vroom("./output/D2_glcp_slice_added_kendall_tau.csv")
+d <- read_feather("./outputs/PC2_calc_kendall_tau_stat.feather")
 
-#### Calculating and labelling area cutoff #####
+#### Calculating and labeling area cutoff #####
 
-c <- d %>% 
+k <- d %>% 
 #selecting columns
   select(hylak_id, bsn_lvl, lake_area, sub_area) %>%
 #grouping by columns for calculation
@@ -34,7 +41,7 @@ c <- d %>%
 #grouping to calculate quantiles
   group_by(bsn_lvl) %>%
 #calculating quantiles of the ratio for each basin level
-  mutate(q05 = quantile(log_ratio, 0.05)) %>%
+  mutate(q05 = quantile(log_ratio, 0.05, na.rm = T)) %>%
 #creating the cutoff column, labelling lakes as 'KEEP' or 'REMOVE'
   mutate(area_cutoff = ifelse(log_ratio > q05, "KEEP", "REMOVE")) %>%
 #ungrouping for new calculations
@@ -46,12 +53,9 @@ c <- d %>%
 
 #### Joining and exporting ####
 #join
-left_join(d, c, by = "hylak_id") %>%
+left_join(d, k, by = "hylak_id") %>%
 #export
-  write.table(., file = paste0("./output/D3_glcp_slim_kendall_add_cutoff.csv"),
-              append = T,
-              row.names = F,
-              col.names = !file.exists("./output/D3_glcp_slim_kendall_add_cutoff.csv"))
+  write_feather(., path = paste0("./outputs/PC3_calc_cutoff_ratio_stat.feather"))
 
 #### Time check ####
 e <- Sys.time()

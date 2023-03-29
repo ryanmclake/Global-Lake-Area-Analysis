@@ -1,4 +1,5 @@
 rm(list=ls())
+gc()
 
 # script calculates kendall tau on GLCP sliced data set 
   # glcp sliced is the GLCP 2.0 with only the columns of interest
@@ -14,14 +15,14 @@ rm(list=ls())
 
 s = Sys.time()
 
-# Elegant way to quickly install packages fast
+# Elegant way to quickly install packages without having to incrementally run install.packages()
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(vroom, dplyr, tidyr, Kendall, readr, permutations)
+pacman::p_load(dplyr, tidyr, Kendall, feather, broom)
 
 #### Bringing in 'glcp slim' data set ####
-d <- vroom::vroom("./outputs/D1_glcp_yearly_slice.csv")
+d <- read_feather("./outputs/D1_glcp_yearly_slice.feather")
 
-#### Calculating kendall tau for each lake ####
+#### Calculating Kendall tau for each lake ####
 
 k <- d %>% 
 #selecting columns
@@ -42,7 +43,7 @@ k <- d %>%
 #join
 left_join(d, k, by = "hylak_id") %>%
 #export
-  write_csv(., file = paste0("./outputs/PC2_calc_kendall_tau_stat.csv"))
+  write_feather(., path = paste0("./outputs/PC2_calc_kendall_tau_stat.feather"))
 
 #### Time check ####
 e <- Sys.time()
