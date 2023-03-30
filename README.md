@@ -18,7 +18,7 @@ We developed a workflow that analyzes the magnitude and direction of lake area c
 1. Open terminal
 2. Type ssh “yourname”@login.hpc.caltech.edu
 3. Type your password when asked
-4. When prompted, I select “1”, which sends prompt to DUO
+4. When prompted, type <i>1</i>, which sends prompt to DUO
 5. Open DUO on Phone and hit the GREEN checkmark. **This same method is used for WinSCP or Fetch**
 
 ### How to Get the newest GLCP data product from Kamiak to CalTech
@@ -34,7 +34,7 @@ In principle, you’re using rsync to pull data from kamiak to CalTech. You will
 Let this run until completion. This can take upwards of an hour for the whole GLCP_extended.csv depending on your connection. 
 
 ### Getting the needed packages to process GLCP in R on CalTech HPC
-1. Open terminal
+1. Open terminal and login using the prior login directions
 2. Type: <i>module load gcc/9.2.0</i>
 3. Type: <i>module load R/4.2.2</i>
 4. Type: <i>R</i>
@@ -46,15 +46,18 @@ Let this run until completion. This can take upwards of an hour for the whole GL
 10. These packages are now installed on your domain in the Caltech Cluster
 
 ### Subsetting the GLCP database to include ONLY the columns we are interested in. 
-The GLCP_extended is huge and we don’t need all of the columns. As a result, we can use cut command in shell to reduce the file to include only the columns we want.
-In Terminal, navigate to your working directory that has the original GLCP_extended.csv data product that you want to use for the analysis.
-In that directory, type the following command:
+The GLCP_extended is huge and we don’t need all of the columns. We use <i>cut</i> command in Shell select the columns we need.
 
-cut -d "," -f1,3,4,5,7,8,11,12,13,15,18,19,31 glcp_extended.csv > glcp_extended_thin.csv
+1. Open Terminal
+2. Navigate to the directory that has the original <i>GLCP_extended.csv</i> data product
+3. Type the following command:
+
+<i>cut -d "," -f1,3,4,5,7,8,11,12,13,15,18,19,31 glcp_extended.csv > glcp_extended_thin.csv</i>
 
 These columns are 1=year, 3=hylak_id, 4=centr_lat, 5=centr_lon, 7=country, 8=bsn_lvl, 11=total_precip_mm, 12=mean_annual_temp_k, 13=pop_sum, 15=permanent_km2, 18=lake_type, 19=lake_area, 31=sub_area
-Let this command run through completion without touching anything in the terminal. It will take maybe 15 minutes maximum. 
-When this command is completed the GLCP should go from ~200+ GB in size to somewhere in the ballpark of 30-50 GB. 
+
+5. Let this command run through completion without touching <b>anything</b> in the terminal (~15 minutes)
+6. When this command completes, the GLCP should go from ~200 GB to ~ 30 GB
 
 
 Extracting the yearly values from the glcp_extended_thin.csv (Finally running SLURM!)
