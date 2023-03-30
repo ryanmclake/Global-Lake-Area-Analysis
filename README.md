@@ -101,7 +101,14 @@ These columns are 1=year, 3=hylak_id, 4=centr_lat, 5=centr_lon, 7=country, 8=bsn
 6. <i>PC6_plot_global_area_change.R</i>
 7. <i>PC7_model_area_drivers.R</i>
 
-
+### Run each script sequentially to process the data
+1. Click the <i>PC1_calc_kendall_tau_stat.R</i> script tab and click <b>Source</b> in the top right of the code window
+2. Click the <i>PC2_calc_cutoff_ratio_stat.R</i> script tab and then click <b>Source</b> in the top right of the code window
+3. Click the <i>PC3_filter_Ktau_cutoff_lakes.R</i> script tab and then click <b>Source</b> in the top right of the code window
+4. Click the <i>PC4_calc_sens_slope_stat.R</i> script tab and then click <b>Source</b> in the top right of the code window
+5. Click the <i>PC5_filter_sens_slope.R</i> script tab and then click <b>Source</b> in the top right of the code window
+6. Click the <i>PC6_plot_global_area_change.R</i> script tab and then click <b>Source</b> in the top right of the code window
+7. Click the <i>PC7_model_area_drivers.R</i> script tab and then click <b>Source</b> in the top right of the code window
 
 
 
