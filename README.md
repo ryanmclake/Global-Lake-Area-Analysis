@@ -92,7 +92,7 @@ These columns are 1=year, 3=hylak_id, 4=centr_lat, 5=centr_lon, 7=country, 8=bsn
 4. Select: Version Control > Git
 5. Paste the repo's URL into "Repository URL:", keep the project directory name as the default, select "open in new session", and click <b>New Project</b>
 
-### Navigate to the <i>/scripts/PC_scritps</i> folder and open the following scripts
+### Navigate to the <i>/scripts/PC_scripts</i> folder and open the following scripts
 1. <i>PC1_calc_kendall_tau_stat.R</i>
 2. <i>PC2_calc_cutoff_ratio_stat.R</i>
 3. <i>PC3_filter_Ktau_cutoff_lakes.R</i>
