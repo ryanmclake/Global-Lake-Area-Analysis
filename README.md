@@ -75,4 +75,8 @@ These columns are 1=year, 3=hylak_id, 4=centr_lat, 5=centr_lon, 7=country, 8=bsn
 9. Download this file onto your personal computer (It should be no more than 4 GB)
 
 
+## WORKFLOW ON PERSONAL COMPUTER
+### A. How to Login to the CalTech HPC on Terminal and WinSCP
+
+
 <a href="url"><img src = "GLCP_Workflow.jpeg" align="center" height="400" width="600" ></a>
