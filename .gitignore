@@ -32,4 +32,7 @@ vignettes/*.pdf
 /inputs/shapes/
 /outputs/
 .DS_Store
+Global-Lake-Area-Analysis.Rproj
+/inputs/.RData
+/scripts/.DS_Store
 
