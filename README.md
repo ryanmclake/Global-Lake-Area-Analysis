@@ -85,18 +85,24 @@ These columns are 1=year, 3=hylak_id, 4=centr_lat, 5=centr_lon, 7=country, 8=bsn
 
 
 ## WORKFLOW ON PERSONAL COMPUTER
-## Cloning Global-Lake-Area-Analysis repo onto your computer (5 steps)
+### Cloning Global-Lake-Area-Analysis repo onto your computer (5 steps)
 1. Go to the [Global-Lake-Area-Analysis](https://github.com/ryanmclake/Global-Lake-Area-Analysis) repository and copy the repo URL. 
 2. Open RStudio
 3. Start a new project: File > New Project
 4. Select: Version Control > Git
 5. Paste the repo's URL into "Repository URL:", keep the project directory name as the default, select "open in new session", and click <b>New Project</b>
 
-### Navigate to the <i>PC_scritps</i> folder and open the following scripts
-1. <i>01_Data_Compile.R</i>
-2. <i>02_model_training.R</i>
-3. <i>03_Generate_Forecasts.R</i>
-4. <i>04_Forecast_Evaluations.R</i>
+### Navigate to the <i>/scripts/PC_scritps</i> folder and open the following scripts
+1. <i>PC1_calc_kendall_tau_stat.R</i>
+2. <i>PC2_calc_cutoff_ratio_stat.R</i>
+3. <i>PC3_filter_Ktau_cutoff_lakes.R</i>
+4. <i>PC4_calc_sens_slope_stat.R</i>
+5. <i>PC5_filter_sens_slope.R</i>
+6. <i>PC6_plot_global_area_change.R</i>
+7. <i>PC7_model_area_drivers.R</i>
+
+
+
 
 
 
