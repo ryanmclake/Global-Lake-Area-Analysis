@@ -13,6 +13,14 @@ Thank you for checking out the GLCP analysis workflow. Lakes globally are both i
 
 We developed a workflow that analyzes the magnitude and direction of lake area change for 1.4+ million lakes globally. We then isolated lakes that were increasing and decreasing in area across four WWF ecoregions and then quantified the importance of drivers. This is a first globally-scaled attempt to partition how lake area is chaning globally and to isolate the most important predictors of that change.
 
+### RUN THE WHOLE WORKFLOW ON myBinder
+Follow the myBinder link:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgithub.com%2Fryanmclake%2FCH4castR.git/HEAD?urlpath=rstudio)
+
+<a href="url"><img src = "GLCP_Workflow.jpeg" align="center" height="600" width="800" ></a>
+
+-----
+
 ## WORKFLOW ON THE CalTech HPC
 ### A. How to Login to the CalTech HPC on Terminal and WinSCP
 1. Open terminal
@@ -79,4 +87,4 @@ These columns are 1=year, 3=hylak_id, 4=centr_lat, 5=centr_lon, 7=country, 8=bsn
 ### A. How to Login to the CalTech HPC on Terminal and WinSCP
 
 
-<a href="url"><img src = "GLCP_Workflow.jpeg" align="center" height="400" width="600" ></a>
+
