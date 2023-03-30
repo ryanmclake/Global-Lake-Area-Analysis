@@ -18,26 +18,26 @@ library(feather)
 
 Lake.SS <- read_feather("./outputs/PC6_filtered_sens_slopes.feather") 
 
-head(Lake.SS, 21)
+#head(Lake.SS, 21)
 
-attach(Lake.SS)
+#attach(Lake.SS)
 
-plot(pop_sum~year)
+#plot(pop_sum~year)
 
 # Now interpolate the population as a linear fit between censuses.
 
 Lake.SS$pop.adj <- na_interpolation(pop_sum, option = "linear")
 
-head(Lake.SS$pop.adj, 5)		# Make sure it added a column that is the interpolated data
+#head(Lake.SS$pop.adj, 5)		# Make sure it added a column that is the interpolated data
 
 # Now check in the interpolated data looks correct.
 
-plot(Lake.SS$pop.adj~Lake.SS$year, pch=19, col="black")	# The real data in black
-points(Lake.SS$pop_sum~Lake.SS$year, pch=19, col="green")	# The interpolated data in green
+#plot(Lake.SS$pop.adj~Lake.SS$year, pch=19, col="black")	# The real data in black
+#points(Lake.SS$pop_sum~Lake.SS$year, pch=19, col="green")	# The interpolated data in green
 
 Lake.tiny <- Lake.SS[c('hylak_id','year','permanent_km2','total_precip_mm','mean_annual_temp_k','pop.adj')]
 
-head(Lake.tiny)
+#head(Lake.tiny)
 
 
 options(na.action = "na.fail")
@@ -85,9 +85,6 @@ t=e-s
 print(t)
 
 
-lake.t.class
-
-
 # Edit out some junk from the matrix lake.class
 lake.t.class <- lake.t.class[-1,]
 class.t.1 <- lake.t.class[,2:4]
@@ -100,11 +97,11 @@ df3 <- class.t.1
 df3 <- data.frame(data.matrix(matrix(as.numeric(class.t.1), ncol = 3)))  # Stuff comes out as text, this converts it to numeric values so we can do the clustering.
 
 
-distance.1 <- dist(df3, method="binary")					# Makes a distance matrix
-cluster.1 <- hclust(distance.1)						# Uses the distance matrix to make a cluster object
-# plot(cluster.1)									# This plots the dendrogram, but quiet for now.
-groups.1 <- cutree(cluster.1, k = 8)					# This creates an array with which group (# of groups = k) the lakes are in.  I think this is what we want.
-rect.hclust(cluster.1, k = 8)							# This plots the dendrogram, but with colored boxes around the groups.
+distance.1 <- dist(df3, method="binary")					  # Makes a distance matrix
+cluster.1 <- hclust(distance.1)						          # Uses the distance matrix to make a cluster object
+# plot(cluster.1)									                  # This plots the Dendrogram, but quiet for now.
+groups.1 <- cutree(cluster.1, k = 8)					      # This creates an array with which group (# of groups = k) the lakes are in.  I think this is what we want.
+rect.hclust(cluster.1, k = 8)							          # This plots the Dendrogram, but with colored boxes around the groups.
 
 ##
 class.t.2 <- cbind(class.t.1,groups.1)
@@ -123,9 +120,10 @@ class.t.2 %x% mutate(Source =
 
 
 
-class.t.3 <- cbind(class.t.1,groups.1, class.lat, class.lon)
+class.t.3 <- cbind(class.t.1, groups.1, class.lat, class.lon)
 
 data6 <- as.data.frame(cbind(class.lon, class.lat, groups.1))
+
 ggplot(data6, aes(x=class.lon, y=class.lat, color=as.factor(groups.1))) + geom_point() +
   scale_color_manual(values = c("1" = "green",
                                 "2" = "yellow",
