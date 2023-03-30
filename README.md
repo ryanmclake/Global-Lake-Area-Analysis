@@ -14,14 +14,14 @@ Thank you for checking out the GLCP analysis workflow. Lakes globally are both i
 We developed a workflow that analyzes the magnitude and direction of lake area change for 1.4+ million lakes globally. We then isolated lakes that were increasing and decreasing in area across four WWF ecoregions and then quantified the importance of drivers. This is a first globally-scaled attempt to partition how lake area is chaning globally and to isolate the most important predictors of that change.
 
 ## WORKFLOW ON THE CalTech HPC
-### How to Login to the CalTech HPC on Terminal and WinSCP
+### A. How to Login to the CalTech HPC on Terminal and WinSCP
 1. Open terminal
 2. Type ssh “yourname”@login.hpc.caltech.edu
 3. Type your password when asked
 4. When prompted, type <i>1</i>, which sends prompt to DUO
 5. Open DUO on Phone and hit the GREEN checkmark. **This same method is used for WinSCP or Fetch**
 
-### How to Get the newest GLCP data product from Kamiak to CalTech
+### B. How to Get the newest GLCP data product from Kamiak to CalTech
 <b>NOTE - skip this whole step if you have the newest data product</b>
 
 Because MFM is still modifying the GLCP on Kamiak, we need to transfer the newest data over to the CalTech Cluster
@@ -33,7 +33,7 @@ Because MFM is still modifying the GLCP on Kamiak, we need to transfer the newes
 In principle, you’re using rsync to pull data from kamiak to CalTech. You will need your Kamiak and Caltech login credentials ready 
 Let this run until completion. This can take upwards of an hour for the whole GLCP_extended.csv depending on your connection. 
 
-### Getting the needed packages to process GLCP in R on CalTech HPC
+### C. Getting the needed packages to process GLCP in R on CalTech HPC
 1. Open terminal and login using the prior login directions
 2. Type: <i>module load gcc/9.2.0</i>
 3. Type: <i>module load R/4.2.2</i>
@@ -45,7 +45,7 @@ Let this run until completion. This can take upwards of an hour for the whole GL
 9. Then type <i>n</i> and hit enter. 
 10. These packages are now installed on your domain in the Caltech Cluster
 
-### Subsetting the GLCP database to include ONLY the columns we are interested in. 
+### D. Subsetting the GLCP database to include ONLY the columns we are interested in. 
 The GLCP_extended is huge and we don’t need all of the columns. We use <i>cut</i> command in Shell select the columns we need.
 
 1. Open Terminal
@@ -59,18 +59,20 @@ These columns are 1=year, 3=hylak_id, 4=centr_lat, 5=centr_lon, 7=country, 8=bsn
 5. Let this command run through completion without touching <b>anything</b> in the terminal (~15 minutes)
 6. When this command completes, the GLCP should go from ~200 GB to ~ 30 GB
 
+### E. Condense GLCP to yearly values from the glcp_extended_thin.csv
 
-Extracting the yearly values from the glcp_extended_thin.csv (Finally running SLURM!)
-Place this R CODE and SHELL SCRIPT in the directory in the CalTech Cluster that you wish to condense the GLCP_extended_thin.csv from yearly to monthly. 
-NOTE - I open WinSCP or Fetch and manually upload these two files onto the Cluster. 
-MAKE SURE YOU PROPERLY UPDATE YOUR DIRECTORIES in these two files. Nine times out of ten errors are directory issues. 
-Open Terminal again and login to the CalTech Cluster
-Navigate to the path where the R CODE and SHELL SCRIPT are located in Terminal
-When there, run: sbatch glcp_data_wrangle.sh
-Then use squeue -u your.name to get updates on the progress. It will also email you
-Depending on how quickly you get your job to start (seconds to days) the run itself should be no more than 2 hours (my latest run was 52 minutes)
-When finished, you will get an email that it is completed and there will be an output file named D1_glcp_yearly_slice.csv
-Download this file onto your local computer. It should be no more than 4 GB. 
+1. Manually upload the <i>D1_glcp_slice_yearly.R</i> and <i>glcp_data_wrangle.sh</i> that are located in <i>/scripts/HPC_scripts/</i> on Github into a working directory of your choice on the CalTech Cluster (Use either WinSCP or Fetch)
+2. <b>MAKE SURE YOU PROPERLY UPDATE YOUR DIRECTORIES in these two files</b>
+3. Open terminal
+4. Navigate to the path where <i>D1_glcp_slice_yearly.R</i> and <i>glcp_data_wrangle.sh</i> are located on the HPC
+5. When there, type the following command:
+
+<i>sbatch glcp_data_wrangle.sh</i>
+
+6. Use <i>squeue -u your.login.name</i> to receive updates (It will also email you)
+7. Depending on how quickly you get your job to start (seconds to days) the run itself should be no more than 2 hours (my latest run was 55 minutes)
+8. When run is completed, you will get an emailthere will be an output file named <i>D1_glcp_yearly_slice.feather</i>
+9. Download this file onto your personal computer (It should be no more than 4 GB)
 
 
 <a href="url"><img src = "GLCP_Workflow.jpeg" align="center" height="400" width="600" ></a>
