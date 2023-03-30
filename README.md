@@ -11,9 +11,10 @@ Questions?  :email: rmcclure@carnegiescience.edu
 
 Thank you for checking out the GLCP analysis workflow. Lakes globally are both increasing and decreasing in size as a result of changing climate and human pressure. However, both the magnitude and spatial variation of how waterbody area is changing has been restricted to regional assesments and has not yet been quantified for lakes globally.
 
-We developed a workflow that analyzes the magnitude and direction of lake area change for 1.4+ million lakes globally. We then isolated lakes that were increasing and decreasing in area across four WWF ecoregions and then quantified the importance of drivers. This is a first globally-scaled attempt to partition how lake area is chaning globally and to isolate the most important predictors of that change.
+We developed a workflow that analyzes the magnitude and direction of lake area change for 1.4+ million lakes globally. We then isolated lakes that were increasing and decreasing in area and then modeled the the most important drivers of lake area change. This is one of the first globally-scaled attempts to partition how lake area is changing and then isolate the most important predictors of that change.
 
 ### RUN THE WHOLE WORKFLOW ON myBinder
+** TESTING DONT FOLLOW LINK YET **
 Follow the myBinder link:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgithub.com%2Fryanmclake%2FCH4castR.git/HEAD?urlpath=rstudio)
 
