@@ -14,38 +14,38 @@ Thank you for checking out the GLCP analysis workflow. Lakes globally are both i
 We developed a workflow that analyzes the magnitude and direction of lake area change for 1.4+ million lakes globally. We then isolated lakes that were increasing and decreasing in area across four WWF ecoregions and then quantified the importance of drivers. This is a first globally-scaled attempt to partition how lake area is chaning globally and to isolate the most important predictors of that change.
 
 ## WORKFLOW ON THE CalTech HPC
-1. Login to the CalTech HPC on Terminal and WinSCP
--Open terminal
--Type ssh “yourname”@login.hpc.caltech.edu
--Type your password when asked
--When prompted, I select “1”, which sends prompt to DUO
--Open DUO on Phone and hit the GREEN checkmark. **This same method is used for WinSCP or Fetch**
+### How to Login to the CalTech HPC on Terminal and WinSCP
+1. Open terminal
+2. Type ssh “yourname”@login.hpc.caltech.edu
+3. Type your password when asked
+4. When prompted, I select “1”, which sends prompt to DUO
+5. Open DUO on Phone and hit the GREEN checkmark. **This same method is used for WinSCP or Fetch**
 
-2. Getting the newest GLCP data product from Kamiak to CalTech
-**NOTE - skip this whole step if you have the newest data product**
+### How to Get the newest GLCP data product from Kamiak to CalTech
+<b>NOTE - skip this whole step if you have the newest data product</b>
+
 Because MFM is still modifying the GLCP on Kamiak, we need to transfer the newest data over to the CalTech Cluster
 
-a. When you have logged into terminal run the following command:
+1. When you have logged into terminal run the following command:
 
 <i>rsync -av --progress “firstname.lastname”@kamiak.wsu.edu:/path/to/data/on/kamiak /central/groups/carnegie_poc/”yourname”/location/you/want/data/to/go</i>
 
-Basically, you’re using rsync to pull data from kamiak to CalTech. You will need your Kamiak and Caltech login credentials ready 
-Let this run until completion. I prefer not to do anything else in the terminal until it has finished transferring. This can take upwards of an hour for the whole GLCP_extended.csv depending on your connection. 
+In principle, you’re using rsync to pull data from kamiak to CalTech. You will need your Kamiak and Caltech login credentials ready 
+Let this run until completion. This can take upwards of an hour for the whole GLCP_extended.csv depending on your connection. 
 
-Getting the needed packages to process GLCP in R on CalTech HPC
-Open terminal
-Type: module load gcc/9.2.0
-Type: module load R/4.2.2
-Type: R
-R will now open in terminal
-Type: install.packages(“dplyr”,”tidyr”,”vroom”,”readr”,”feather”)
-R will ask you where you want to download from, I chose 71.
-When finished, type q()
-Then type n and hit enter. 
-These packages are now installed on your domain in the Caltech Cluster
-You will need these for step 5.
+### Getting the needed packages to process GLCP in R on CalTech HPC
+1. Open terminal
+2. Type: <i>module load gcc/9.2.0</i>
+3. Type: <i>module load R/4.2.2</i>
+4. Type: <i>R</i>
+5. R will now open in terminal
+6. Type: <i>install.packages(“dplyr”,”tidyr”,”vroom”,”readr”,”feather”)</i>
+7. R will ask you where you want to download from, I chose 71.
+8. When finished, type <i>q()</i>
+9. Then type <i>n</i> and hit enter. 
+10. These packages are now installed on your domain in the Caltech Cluster
 
-Subsetting the GLCP database to include ONLY the columns we are interested in. 
+### Subsetting the GLCP database to include ONLY the columns we are interested in. 
 The GLCP_extended is huge and we don’t need all of the columns. As a result, we can use cut command in shell to reduce the file to include only the columns we want.
 In Terminal, navigate to your working directory that has the original GLCP_extended.csv data product that you want to use for the analysis.
 In that directory, type the following command:
