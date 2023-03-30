@@ -1,8 +1,8 @@
 
 rm(list=ls())
 gc()
-# Go to where the data is.
 
+# Go to where the data are
 
 library(imputeTS)
 library(MASS)
