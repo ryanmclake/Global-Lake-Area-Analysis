@@ -17,7 +17,7 @@ We developed a workflow that analyzes the magnitude and direction of lake area c
 Follow the myBinder link:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgithub.com%2Fryanmclake%2FCH4castR.git/HEAD?urlpath=rstudio)
 
-<a href="url"><img src = "GLCP_Workflow.jpeg" align="center" height="600" width="800" ></a>
+<a href="url"><img src = "GLCP_Workflow.jpeg" align="center" height="600" width="1000" ></a>
 
 -----
 
