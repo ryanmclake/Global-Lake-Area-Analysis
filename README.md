@@ -15,11 +15,11 @@ We developed a workflow that analyzes the magnitude and direction of lake area c
 
 ## WORKFLOW ON THE CalTech HPC
 1. Login to the CalTech HPC on Terminal and WinSCP
-    a. Open terminal
-    b. Type ssh “yourname”@login.hpc.caltech.edu
-    c. Type your password when asked
-    d. When prompted, I select “1”, which sends prompt to DUO
-    e. Open DUO on Phone and hit the GREEN checkmark. **This same method is used for WinSCP or Fetch**
+-Open terminal
+-Type ssh “yourname”@login.hpc.caltech.edu
+-Type your password when asked
+-When prompted, I select “1”, which sends prompt to DUO
+-Open DUO on Phone and hit the GREEN checkmark. **This same method is used for WinSCP or Fetch**
 
 2. Getting the newest GLCP data product from Kamiak to CalTech
 **NOTE - skip this whole step if you have the newest data product**
