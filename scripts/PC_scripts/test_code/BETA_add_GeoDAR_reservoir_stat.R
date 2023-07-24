@@ -64,7 +64,7 @@ dams_to_remove <- dam_glcp_link %>%
 #### Identifying RESERVOIRS or LAKES ####
 left_join(d, dams_to_remove, by = "hylak_id") %>%
 #adding tagging column for RESERVOIRS or LAKES
-  mutate(water_body_type = ifelse(dist <= 5000, "RESERVOIR", "LAKE")) %>%
+  mutate(water_body_type = ifelse(dist <= 1000, "RESERVOIR", "LAKE")) %>% #Changed to 1000 from 5000
 #removing dist column
   select(-dist) %>% 
 #exporting
