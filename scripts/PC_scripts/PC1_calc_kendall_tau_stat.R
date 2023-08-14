@@ -17,10 +17,10 @@ s = Sys.time()
 
 # Elegant way to quickly install packages without having to incrementally run install.packages()
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(dplyr, tidyr, Kendall, feather, broom)
+pacman::p_load(dplyr, tidyr, Kendall, readr, broom, feather)
 
 #### Bringing in 'glcp slim' data set ####
-d <- read_feather("./outputs/D1_glcp_yearly_slice.feather")
+d <- read_csv("./outputs/D1_glcp_yearly_mean.csv")
 
 #### Calculating Kendall tau for each lake ####
 
