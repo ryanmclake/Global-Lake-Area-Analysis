@@ -4,20 +4,19 @@ gc()
 
 # Go to where the data are
 
-library(imputeTS)
-library(MASS)
-library(leaps)
-library(cluster)
-library("MuMIn")
-library(feather)
+# Load packages
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(imputeTS, ggplot2, MASS, feather, leaps, cluster, "MuMIn", dplyr)
 
 #  Import test data of made up lake data
-# There are three groups of 4, 4 & 3 for a total of 13 lakes.
-# In each case there is a variable called Area and then Var1, Var2 and so on.
+#  There are three groups of 4, 4 & 3 for a total of 13 lakes.
+#  In each case there is a variable called Area and then Var1, Var2 and so on.
 
+# options between increasing and decreasing
+Lake.SS <- read_feather("./outputs/PC6_filtered_sens_slopes_decreasing.feather") 
+#Lake.SS <- read_feather("./outputs/PC6_filtered_sens_slopes_increasing.feather") 
 
-Lake.SS <- read_feather("./outputs/PC6_filtered_sens_slopes.feather") 
-
+Lake.SS <- Lake.SS %>% filter(country == "Canada")
 #head(Lake.SS, 21)
 
 #attach(Lake.SS)
@@ -26,7 +25,7 @@ Lake.SS <- read_feather("./outputs/PC6_filtered_sens_slopes.feather")
 
 # Now interpolate the population as a linear fit between censuses.
 
-Lake.SS$pop.adj <- na_interpolation(pop_sum, option = "linear")
+Lake.SS$pop.adj <- na_interpolation(Lake.SS$pop_sum, option = "linear")
 
 #head(Lake.SS$pop.adj, 5)		# Make sure it added a column that is the interpolated data
 
@@ -53,9 +52,6 @@ class.lon <- unique(Lake.SS$centr_lon)	# Make a list of latitudes for later plot
 # make space for results
 lake.t.class = array()
 
-#### initial time for script start #### 
-s = Sys.time()
-
 # Run loop over lakes
 for (i in 1:lakes.t.n){
   topology <- array()
@@ -79,11 +75,6 @@ for (i in 1:lakes.t.n){
 }										# End of loop
 
 
-#### Time check ####
-e <- Sys.time()
-t=e-s
-print(t)
-
 
 # Edit out some junk from the matrix lake.class
 lake.t.class <- lake.t.class[-1,]
@@ -91,23 +82,30 @@ class.t.1 <- lake.t.class[,2:4]
 
 row.names(class.t.1) <- lakes.t
 colnames(class.t.1) <- c("Precip","Temp.","Population")
-class.t.1										# Look at it
+#class.t.1										# Look at it
 
 df3 <- class.t.1
 df3 <- data.frame(data.matrix(matrix(as.numeric(class.t.1), ncol = 3)))  # Stuff comes out as text, this converts it to numeric values so we can do the clustering.
 
+gc()
+source("/Users/ryanmcclure/Documents/Global-Lake-Area-Analysis/scripts/hclust_new.R")
+
+environment(hclust_new) <- asNamespace('stats')
+assignInNamespace("hclust", hclust_new, ns = "stats")
 
 distance.1 <- dist(df3, method="binary")					  # Makes a distance matrix
-cluster.1 <- hclust(distance.1)						          # Uses the distance matrix to make a cluster object
-# plot(cluster.1)									                  # This plots the Dendrogram, but quiet for now.
+cluster.1 <- hclust(distance.1, method="average")		          # Uses the distance matrix to make a cluster object
+#plot(cluster.1)									                  # This plots the Dendrogram, but quiet for now.
 groups.1 <- cutree(cluster.1, k = 8)					      # This creates an array with which group (# of groups = k) the lakes are in.  I think this is what we want.
-rect.hclust(cluster.1, k = 8)							          # This plots the Dendrogram, but with colored boxes around the groups.
+#rect.hclust(cluster.1, k = 8)							          # This plots the Dendrogram, but with colored boxes around the groups.
 
 ##
 class.t.2 <- cbind(class.t.1,groups.1)
 library(dplyr)
 
-class.t.2 %x% mutate(Source = 
+class.t.2 <- as.data.frame(class.t.2)
+
+class.t.2 <- class.t.2 %>% mutate(Source = 
                        case_when(class.t.2[,4] == "5" ~ "Population",
                                  class.t.2[,4] == "6" ~ "None",
                                  class.t.2[,4] == "1" ~ "Climate",
@@ -117,8 +115,6 @@ class.t.2 %x% mutate(Source =
                                  class.t.2[,4] == "4" ~ "Both",
                                  class.t.2[,4] == "8" ~ "Both")
 )
-
-
 
 class.t.3 <- cbind(class.t.1, groups.1, class.lat, class.lon)
 

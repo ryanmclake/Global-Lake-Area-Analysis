@@ -35,12 +35,19 @@ library(parallel, warn.conflicts = FALSE)
 library(doParallel, warn.conflicts = FALSE)
 
 file <-  list.files(path = "/central/groups/carnegie_poc/rmcclure/GLCP-2.0/GLCP_2.0_official/")
+
   #imports using 'vroom' 
   #BE SURE TO UPDATE YOUR PATH
 
 slice_glcp <- function(x){
 
-vroom::vroom(paste0("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/GLCP_2.0_official/",file)) %>%
+# vroom::vroom(paste0("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/GLCP_2.0_official/",file)) %>%
+d <- vroom::vroom(paste0("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/GLCP_2.0_official/", file)) 
+
+m <- vroom::vroom("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/basin_matches.csv")
+
+d %>%
+    left_join(., m, by = "HYBAS_ID") %>%
     group_by(Hylak_id, year, Center_Lat, Center_Lon, Country) %>%
     #choose what year you want to start from
     
@@ -52,10 +59,10 @@ vroom::vroom(paste0("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/GLCP_2.0_off
     slice(1) %>%
     #BE SURE TO UPDATE YOUR PATH
     write.table(., file = paste0("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/outputs/D1_glcp_yearly_slice.csv"),
-                append = T,
-                row.names = F,
-                col.names = !file.exists("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/outputs/D1_glcp_yearly_slice.csv"))
-    
+                   append = T,
+                   row.names = F,
+                   col.names = !file.exists("/central/groups/carnegie_poc/rmcclure/GLCP-2.0/outputs/D1_glcp_yearly_slice.csv"))
+
 }
 
 no_cores <- detectCores()

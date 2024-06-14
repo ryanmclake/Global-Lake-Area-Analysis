@@ -16,7 +16,7 @@ s = Sys.time()
 
 #### Load libraries ####
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(dplyr, trend, feather, broom)
+pacman::p_load(dplyr, trend, feather, broom, readr)
 
 
 # Filter only the significant sen's slopes to link with the WWF global Ecoregions
@@ -26,7 +26,25 @@ read_feather("./outputs/PC5_add_sens_slope_stat.feather") %>%
   # Filter only the significant sen's slopes (identified in the previous script)
   dplyr::filter(sig_sens_slope == "S") %>%
   # Write it to a new table
-write_feather(., path = paste0("./outputs/PC6_filtered_sens_slopes.feather"))
+  write_csv(., path = paste0("./outputs/PC6_filtered_sens_slopes_all.csv"))
+
+# Pull in DF using feather (its faster)
+read_feather("./outputs/PC5_add_sens_slope_stat.feather") %>% 
+  # Filter only the significant sen's slopes (identified in the previous script)
+  dplyr::filter(sig_sens_slope == "S") %>%
+  # Filter increasing lakes
+  dplyr::filter(sens.slope > 0) %>%
+  # Write it to a new table
+  write_csv(., path = paste0("./outputs/PC6_filtered_sens_slopes_increasing.csv"))
+
+# Pull in DF using feather (its faster)
+read_feather("./outputs/PC5_add_sens_slope_stat.feather") %>% 
+  # Filter only the significant sen's slopes (identified in the previous script)
+  dplyr::filter(sig_sens_slope == "S") %>%
+  # Filter decreasing lakes
+  dplyr::filter(sens.slope < 0) %>%
+  # Write it to a new table
+  write_csv(., path = paste0("./outputs/PC6_filtered_sens_slopes_decreasing.csv"))
 
 
 #### Time check ####

@@ -25,7 +25,7 @@ pacman::p_load(dplyr, tidyr, Kendall, feather, broom)
 
 #### Bringing in the data set ####
 
-d <- read_feather("./outputs/PC2_calc_kendall_tau_stat.feather")
+d <- read_feather("./outputs/PC2_calc_kendall_tau_stat.feather") 
 
 #### Calculating and labeling area cutoff #####
 

@@ -17,17 +17,17 @@ s = Sys.time()
 
 # Elegant way to quickly install packages without having to incrementally run install.packages()
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load(dplyr, tidyr, Kendall, feather, broom)
+pacman::p_load(dplyr, tidyr, Kendall, readr, broom, feather)
 
 #### Bringing in 'glcp slim' data set ####
-d <- read_feather("./outputs/D1_glcp_yearly_slice.feather")
+d <- read.csv("/Users/ryanmcclure/Documents/Global-Lake-Area-Analysis/D1_glcp_yearly_slice.csv", sep = " ")
 
 #### Calculating Kendall tau for each lake ####
 
 k <- d %>% 
 #selecting columns
-  select(hylak_id, permanent_km2) %>%
-  group_by(hylak_id) %>%
+  select(Hylak_id, permanent_km2) %>%
+  group_by(Hylak_id) %>%
   summarise(across(c(1),  ~list(MannKendall(.) %>%
                                   tidy %>%
                                   select(p.value, statistic)))) %>%
@@ -41,9 +41,9 @@ k <- d %>%
 
 #### Joining and exporting ####
 #join
-left_join(d, k, by = "hylak_id") %>%
+left_join(d, k, by = "Hylak_id") %>%
 #export
-  write_feather(., path = paste0("./outputs/PC2_calc_kendall_tau_stat.feather"))
+  write_feather(., path = paste0("/Users/ryanmcclure/Documents/Global-Lake-Area-Analysis/outputs/PC2_calc_kendall_tau_stat.feather"))
 
 #### Time check ####
 e <- Sys.time()
