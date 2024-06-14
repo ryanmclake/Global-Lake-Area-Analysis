@@ -20,7 +20,11 @@ if (!require("pacman")) install.packages("pacman")
 pacman::p_load(dplyr, tidyr, Kendall, readr, broom, feather)
 
 #### Bringing in 'glcp slim' data set ####
+<<<<<<< HEAD
 d <- read.csv("/Users/ryanmcclure/Documents/Global-Lake-Area-Analysis/D1_glcp_yearly_slice.csv", sep = " ")
+=======
+d <- read_csv("./outputs/D1_glcp_yearly_mean.csv")
+>>>>>>> 26b0469682a6f3bdb94335d5bba390861bde1bdc
 
 #### Calculating Kendall tau for each lake ####
 

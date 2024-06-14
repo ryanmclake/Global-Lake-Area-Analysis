@@ -23,9 +23,11 @@ pacman::p_load(dplyr, trend, feather, broom, readr)
 
 # Pull in DF using feather (its faster)
 read_feather("./outputs/PC5_add_sens_slope_stat.feather") %>% 
+  dplyr::filter(sens.slope > 0) %>%
   # Filter only the significant sen's slopes (identified in the previous script)
   dplyr::filter(sig_sens_slope == "S") %>%
   # Write it to a new table
+<<<<<<< HEAD
   write_csv(., path = paste0("./outputs/PC6_filtered_sens_slopes_all.csv"))
 
 # Pull in DF using feather (its faster)
@@ -45,6 +47,17 @@ read_feather("./outputs/PC5_add_sens_slope_stat.feather") %>%
   dplyr::filter(sens.slope < 0) %>%
   # Write it to a new table
   write_csv(., path = paste0("./outputs/PC6_filtered_sens_slopes_decreasing.csv"))
+=======
+write_csv(., path = paste0("./outputs/PC6_filtered_swelling_lakes.csv"))
+
+# Pull in DF using feather (its faster)
+read_feather("./outputs/PC5_add_sens_slope_stat.feather") %>% 
+  dplyr::filter(sens.slope < 0) %>%
+  # Filter only the significant sen's slopes (identified in the previous script)
+  dplyr::filter(sig_sens_slope == "S") %>%
+  # Write it to a new table
+  write_csv(., path = paste0("./outputs/PC6_filtered_shrinking_lakes.csv"))
+>>>>>>> 26b0469682a6f3bdb94335d5bba390861bde1bdc
 
 
 #### Time check ####
