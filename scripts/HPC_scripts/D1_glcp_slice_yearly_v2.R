@@ -72,16 +72,17 @@ d %>%
 
 }
 
+# Windows 
 no_cores <- detectCores() - 2
 cl<-makeCluster(no_cores, type="SOCK")
 system.time(clusterApply(cl, file, slice_glcp(file)))
 stopCluster(cl)
 
-
-# no_cores <- detectCores()
-# cl <- makeCluster(no_cores, type="FORK")
-# registerDoParallel(cl)
-# foreach(x=file) %dopar% slice_glcp(x)
+# Apple & Linux
+no_cores <- detectCores()
+cl <- makeCluster(no_cores, type="FORK")
+registerDoParallel(cl)
+foreach(x=file) %dopar% slice_glcp(x)
 
 #### Time check ####
 e <- Sys.time()
